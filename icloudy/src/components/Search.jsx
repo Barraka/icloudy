@@ -53,7 +53,7 @@ function Search(props) {
         if(!town)return;
         const key = import.meta.env.VITE_APP_ID;
         // let cities = `https://api.openweathermap.org/data/2.5/find?q=${town}&type=like&appid=${key}`;   
-        let cities = `http://api.openweathermap.org/geo/1.0/direct?q=${town}&limit=10&appid=${key}`     
+        let cities = `https://api.openweathermap.org/geo/1.0/direct?q=${town}&limit=10&appid=${key}`     
         try {            
             const reqCities = await fetch(cities);
             const dataCities = await reqCities.json();    
