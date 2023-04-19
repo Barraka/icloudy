@@ -3,7 +3,7 @@ import {UserContext} from '../App';
 import Favourite from './Favourite';
 
 function Search(props) {
-    const {dataNow, setDataNow, dataForecast, setDataForecast, citySearch, setCitySearch, updateCity, setDisplayLogo} = useContext(UserContext);
+    const {dataNow, setDataNow, setDataForecast, updateCity, setDisplayLogo} = useContext(UserContext);
     const searchRef = useRef(null);
     const [home, setHome]= useState();
     const [favs, setFavs] = useState([]);
@@ -11,7 +11,6 @@ function Search(props) {
 
     useEffect(()=>{
         const homeRaw = localStorage.getItem('home');
-        console.log('home: ', homeRaw);
         if(homeRaw) {
             const home = JSON.parse(homeRaw);
             searchRef.current.value=home.name;
@@ -51,13 +50,11 @@ function Search(props) {
         const rest = town.slice(1);
         town= firstLetter.toUpperCase() + rest;
         if(!town)return;
-        const key = import.meta.env.VITE_APP_ID;
-        // let cities = `https://api.openweathermap.org/data/2.5/find?q=${town}&type=like&appid=${key}`;   
+        const key = import.meta.env.VITE_APP_ID; 
         let cities = `https://api.openweathermap.org/geo/1.0/direct?q=${town}&limit=10&appid=${key}`     
         try {            
             const reqCities = await fetch(cities);
-            const dataCities = await reqCities.json();    
-            console.log('dataCities: ', dataCities);        
+            const dataCities = await reqCities.json();           
 
             const filteredCities = dataCities.reduce((accumulator, currentValue) => {
                 // check if an object with the same name, country, and state already exists in the accumulator array
@@ -71,7 +68,6 @@ function Search(props) {
                 return accumulator;
               }, []);
 
-            console.log('filtered after compare: ', filteredCities);
             if(filteredCities.length>1) {
                 setSuggestion(filteredCities);
                 setDataNow({});
@@ -84,26 +80,15 @@ function Search(props) {
         }
     }
     async function fetchData(city) {
-        console.log('city: ', city);
         setSuggestion([]);
         searchRef.current.value=city.name;
-        const key = import.meta.env.VITE_APP_ID;
-        // let url_now=`https://api.openweathermap.org/data/2.5/weather?q=${town}&APPID=${key}`;
-        // let url_now=`https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&APPID=${key}`;
-        
+        const key = import.meta.env.VITE_APP_ID;        
         let url_now=`https://api.openweathermap.org/data/3.0/onecall?lat=${city.lat}&lon=${city.lon}&appid=${key}`;
-        // let url_now=`https://api.openweathermap.org/data/2.5/weather?id=${city.id}&APPID=${key}`;
-        // let url_forecast=`https://api.openweathermap.org/data/2.5/forecast?id=${city.id}&APPID=${key}`;
         const reqNow = await fetch(url_now);
         const dataSearchNow = await reqNow.json();
-        // const reqForecast = await fetch(url_forecast);
-        // const dataSearchForecast = await reqForecast.json();
-        console.log('now: ', dataSearchNow);
-        // console.log('dataSearchForecast: ', dataSearchForecast);
         dataSearchNow.current.name=city.name;
         dataSearchNow.current.lat=dataSearchNow.lat;
         dataSearchNow.current.lon=dataSearchNow.lon;
-
         setDataNow(dataSearchNow.current);
         setDataForecast(dataSearchNow.daily);
     }
@@ -112,11 +97,11 @@ function Search(props) {
         localStorage.setItem('home', JSON.stringify({name:dataNow.name, lat:dataNow.lat, lon: dataNow.lon}));
         setHome(dataNow);
     }
+
     function addFavourite() {
         let current = localStorage.getItem('fav');
         if(current) {
             current = JSON.parse(current);
-            console.log('datanow: ', dataNow);
             current.push({name:dataNow.name, lat:dataNow.lat, lon: dataNow.lon});
             setFavs(current);
             localStorage.setItem('fav', JSON.stringify(current));

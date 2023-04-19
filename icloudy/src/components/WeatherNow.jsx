@@ -2,14 +2,12 @@ import React, { useEffect, useState, useContext, useRef } from 'react'
 import {UserContext} from '../App';
 
 function WeatherNow(props) {
-    const {dataNow, setDataNow, dataForecast, convertTemp, toggleConvert, tempSign } = useContext(UserContext);
+    const {dataNow, convertTemp, toggleConvert, tempSign } = useContext(UserContext);
     const windRef = useRef(null);
 
     useEffect(()=>{
         windRef.current.style.transform = `rotate(${dataNow.wind_deg}deg)`
     },[]);
-    
-
 
     return (
         <div className="now" style={{ backgroundColor: "rgb(0, 0, 255)" }}>
@@ -41,6 +39,7 @@ function WeatherNow(props) {
                     <img
                         className="iconImg"
                         src={`https://openweathermap.org/img/wn/${dataNow.weather[0].icon}@2x.png`}
+                        draggable='false'
                     />
                 </div>
                 <div className="description">{dataNow.weather[0].description}</div>

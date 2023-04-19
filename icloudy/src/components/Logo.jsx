@@ -6,15 +6,10 @@ function Logo(props) {
     const {dataNow, removeLogo } = useContext(UserContext);
     const logoRef = useRef(null);
     const [style, setStyle] = useState(true);
-
-    useEffect(()=>{
-        
-    },[]);
      
     useEffect(()=>{
         if(Object.keys(dataNow).length) {
-            setStyle(false);
-            
+            setStyle(false);            
         }
     },[dataNow]);
 
@@ -22,13 +17,12 @@ function Logo(props) {
         if(logoRef.current.classList.contains('removeLogo')) {
             logoRef.current.classList.add('end');
             removeLogo();
-        }
-        
+        }        
     }
 
     return (
         <div ref={logoRef} className={style ? "logo" : "removeLogo"} onAnimationEnd={animateEnd} >
-            <img src={logo} alt="logo" className="img" />
+            <img src={logo} alt="logo" className="img" draggable='false'/>
         </div>
     )
 }

@@ -29,7 +29,6 @@ function Card(props) {
         setDisplayMore(false);
     }
 
-
     return (
         <div ref={cardRef} className="cardOuter" >
             <div className="date">
@@ -41,7 +40,7 @@ function Card(props) {
                 <div className="temp">{convertTemp(props.data.temp.day)} {tempSign}</div>
             </div>
             <div className="icon">
-                <img className="iconImg" src={`https://openweathermap.org/img/wn/${props.data.weather[0].icon}@2x.png`} />
+                <img className="iconImg" src={`https://openweathermap.org/img/wn/${props.data.weather[0].icon}@2x.png`} draggable='false' />
             </div>
             <div className="description">{props.data.weather[0].description}</div>
             <div className="temperatureWrapper">

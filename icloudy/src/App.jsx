@@ -56,15 +56,6 @@ function App() {
     function displaceSearch() {
         containerRef.current.classList.remove('homePage');
     }
-    function setHome(c) {
-        localStorage.setItem('home', 'c');
-    }
-    function addFavourite(c) {
-        let fav = localStorage.getItem('fav');
-        fav = JSON.parse(fav);
-        fav.push(c);
-        localStorage.setItem(JSON.stringify(fav));
-    }
 
 
     return (
@@ -72,11 +63,9 @@ function App() {
             
             <div className="appWrapper">
             
-                {/* <div className="screen"></div> */}
                 <Rain />
-                {displayLogo ? <Logo /> : null }
 
-                
+                {displayLogo ? <Logo /> : null }                
 
                 <div ref={containerRef} className="container homePage">
                     <Search />        
