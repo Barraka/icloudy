@@ -87,7 +87,9 @@ body {
 .homePage {
     margin-top: 300px;
 }
-
+.searchWrapper {
+    max-width: 98vw;
+}
 .outerSearch {
     display: flex;
     justify-content: center;
@@ -98,8 +100,13 @@ body {
     cursor: pointer;
     position:relative;
     gap: 8px;
+    max-width: 100vw;
 }
-
+@media(max-width: 330px) {
+    .outerSearch {
+        flex-direction: column;
+    }
+}
 .citySearch {
     text-align: center;
     border-radius: 5px;
@@ -108,6 +115,8 @@ body {
     padding: 2px 8px;
     transition: outline 0.5s ease;
     outline: 3px solid transparent;
+    width: 200px;
+    
 }
 .citySearch:focus {
     outline: 3px solid rgb(116, 219, 219);    
@@ -118,7 +127,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;  
-    
     gap: 8px;
 }
 .searchSVG {
@@ -162,6 +170,17 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     padding:20px;
     gap:40px;
     box-shadow: 0px 5px 8px 4px rgb(56, 56, 56);
+    max-width: 100vw;
+}
+@media(max-width:380px) {
+    .now {
+        gap: 10px;
+    }
+}
+@media(max-width:300px) {
+    .now {
+        flex-direction: column;
+    }
 }
 
 .windDir {
