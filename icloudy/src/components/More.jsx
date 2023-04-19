@@ -19,7 +19,7 @@ function More(props) {
             </div>
             <div className="moreWrapper">
                 <div className="overlayLabel">Rain %:</div>
-                <div className="overlayText">{props.data.pop * 100}</div>
+                <div className="overlayText">{Math.floor(props.data.pop * 100)}</div>
             </div>
             <div className="moreWrapper">
                 <div className="overlayLabel">Wind:</div>
